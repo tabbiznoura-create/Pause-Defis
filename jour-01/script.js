@@ -10,11 +10,36 @@ let articles = [
   { id: 9, titre: "Collier main de Fatma", categorie: "collier", prix: 980, stock: 7, date: "2026-08-05" },
   { id: 10, titre: "Créoles argent", categorie: "boucles", prix: 720, stock: 9, date: "2026-10-18" }
 ];
-
+// 01
 const bagues = articles.filter(article => 
   article.categorie === "bague");
 
-  console.table(bagues);
+  // console.table(bagues);
+
+// 02
+const ruptureDeStock = articles.filter(article => 
+  article.stock === 0
+)
+.map(article => article.titre)
+// console.table(ruptureDeStock)
+
+// 03
+const articleId = articles.find(article => 
+  article.id === 7)
+
+  // console.log(articleId)
+
+
+  // 04
+  const prix = articles.some(article => 
+    article.prix > 5000)
+  // console.log(prix)
+
+  // 05
+  const stock = articles.every(article => 
+    article.stock > 0
+  )
+  // console.table(stock)
 
 
 
