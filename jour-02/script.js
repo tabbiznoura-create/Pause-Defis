@@ -10,3 +10,49 @@ let articles = [
   { id: 9, titre: "Collier main de Fatma", categorie: "collier", prix: 980, stock: 7, date: "2026-08-05" },
   { id: 10, titre: "Créoles argent", categorie: "boucles", prix: 720, stock: 9, date: "2026-10-18" }
 ];
+
+// 01
+//  par prix
+const prixCroissante = [...articles].sort((a, b) => 
+  a.prix - b.prix
+)
+.map(article => article.titre)
+// console.table(prixCroissante)
+
+// par titre
+const parTitre = [...articles].sort((a, b) => 
+  a.titre.localeCompare(b.titre))
+.map(article => article.titre)
+// console.log(parTitre)
+
+//  par date, du plus récent au plus ancien
+
+const parDate =   [...articles].sort((a, b) => 
+  b.date.localeCompare(a.date))
+.map(article => article.titre)
+// console.table(parTitre)
+
+
+// 02
+const total = articles.reduce((total, article) => {
+  return total + (article.prix * article.stock)
+}, 0)
+// console.log(total)
+
+// 03
+const total2 = articles.reduce((acc, article) => {
+  if (acc[article.categorie]) {
+    acc[article.categorie]++;
+  } else {
+    acc[article.categorie] = 1;
+  }
+  return acc;
+}, {});
+
+// console.table(total2);
+// console.table(articles[0].titre)
+
+
+
+
+
