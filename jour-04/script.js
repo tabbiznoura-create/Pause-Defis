@@ -9,4 +9,64 @@ let articles = [
   { id: 8, titre: "Bague saphir", categorie: "bague", prix: 6100, stock: 0, date: "2026-11-10" },
   { id: 9, titre: "Collier main de Fatma", categorie: "collier", prix: 980, stock: 7, date: "2026-08-05" },
   { id: 10, titre: "Créoles argent", categorie: "boucles", prix: 720, stock: 9, date: "2026-10-18" }
-];
+]; 
+
+
+function appliquerFiltres(items, options) {
+  let resultat = items.filter(article =>
+  article.titre.toLowerCase().includes(options.q.toLowerCase())
+  &&
+  (options.categorie === "toutes" || article.categorie === options.categorie)
+  )
+if (options.tri === "prix-asc"){
+  resultat = [...resultat].sort((a, b) => 
+    a.prix - b.prix)
+} else if (options.tri === "prix-desc") {
+  resultat = [...resultat].sort((a, b) => 
+  b.prix - a.prix)
+} else if (options.tri === "titre") { 
+  resultat = [...resultat].sort((a, b) =>
+  a.titre.localeCompare(b.titre))
+}
+return resultat
+}
+// console.table(appliquerFiltres(articles, { q: "bague"}));
+// console.table(appliquerFiltres(articles, {
+//   q: "argent",
+//   categorie: "bracelet",
+//   tri: "prix-desc"
+//   tri: "prix-asc"
+//   tri: "titre"
+// }).map(article => ({titre: article.titre, 
+//   prix: article.prix
+// }))
+// );
+
+
+const liste = document.querySelector("#liste")
+
+function render(articlesAffiches) {
+  liste.textContent = "";
+  articles.forEach(function(article) {
+    const li = document.createElement("li");
+    li.textContent = `${article.titre} - ${article.categorie} - ${article.prix} DH ` +
+    (article.stock === 0 ? "Rupture" : `Stock : ${article.stock}`)
+    liste.appendChild(li);
+  })
+  const compteur = document.querySelector("#compteur")
+    compteur.textContent = `Nombre d'articles : ${articlesAffiches.length}`
+
+  const valeurStock = document.querySelector("#valeur-stock")
+
+    const totalStock = articlesAffiches.reduce((total, article) => {
+      return total + (article.prix * article.stock)
+      }, 0)
+
+      valeurStock.textContent = `Valeur du stock : ${totalStock} dh`
+}
+render(articles);
+// render(appliquerFiltres(articles, {
+//   q : "",
+//   categorie: "bague",
+//   tri: "titre"
+// }))
